@@ -1,3 +1,10 @@
+// ============================================================
+// CURSOR CUSTOM — ganti arrow standar dengan dot + ring
+// (mix-blend-difference, ikut invert warna apa pun).
+// - Hover link/button: ring membesar
+// - Element [data-cursor-label] (mis. card proyek): ring besar
+//   menampilkan teks label (VIEW) via data-cursor-label.
+// ============================================================
 "use client";
 
 import { useEffect, useRef } from "react";

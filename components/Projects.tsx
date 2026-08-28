@@ -1,3 +1,9 @@
+// ============================================================
+// PROJECTS (SELECTED WORK) — showcase horizontal:
+// GSAP ScrollTrigger PIN section lalu translate track card
+// ke kiri mengikuti proporsi scroll (scrub). Kecepatan scroll
+// memicu skewX card (velocity); cursor tampil label "VIEW".
+// ============================================================
 "use client";
 
 import Image from "next/image";

@@ -1,3 +1,7 @@
+// ============================================================
+// HOME PAGE — urutan section halaman. Hero+About dibungkus div
+// untuk sticky/pin behavior; Skills, Projects, Contact menyusul.
+// ============================================================
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Projects from "@/components/Projects";
@@ -7,7 +11,7 @@ import Contact from "@/components/Contact";
 export default function Home() {
   return (
     <>
-      <div className="relative">
+      <div className="relative [scroll-snap-type:y_proximity]">
         <Hero />
         <About />
       </div>

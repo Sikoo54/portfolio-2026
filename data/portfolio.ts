@@ -1,22 +1,33 @@
+// ============================================================
+// DATA PORTOFOLIO — semua konten placeholder di satu tempat.
+// Edit di sini untuk ganti nama, bio, proyek, skills, link.
+// ============================================================
+
 export const site = {
   name: "Sacha Ahsan",
   firstName: "Sacha",
   lastName: "Ahsan",
   role: "Frontend Developer",
-  email: "hello@sachaahsan.dev",
+  email: "sachas4f@gmail.com",
   location: "Bali, Indonesia",
   availability: "Available for work",
 };
 
 export const navLinks = [
-  { label: "Work", href: "#work" },
+  { label: "Home", href: "#top" },
   { label: "About", href: "#about" },
-  { label: "Skills", href: "#skills" },
+  { label: "Stack", href: "#skills" },
+  { label: "Work", href: "#work" },
   { label: "Contact", href: "#contact" },
 ];
 
-export const aboutText =
-  "I'm Sacha — a frontend developer from Bali who cares about the details. I build fast, accessible interfaces with React and Next.js, and I obsess over motion, typography, and the small interactions that make products feel alive.";
+export const aboutParas = [
+  "Hi, I'm Sacha Ahsan, a Frontend Developer based in Bali. I focus on building clean, responsive, and user-friendly web interfaces using React and Next.js.",
+  "I bring a strong drive to learn and genuine curiosity about everything in the web development world, always looking for better ways to solve problems and write cleaner code. Looking ahead, I'm working toward becoming a Fullstack Developer, deepening my understanding of the backend so I can build applications end to end.",
+  "To me, every project is a chance to learn something new — whether it's a technique, a tool, or a different way of thinking through a problem.",
+];
+
+export const quoteText = "Every project is a lesson, every bug is a teacher.";
 
 export const projects = [
   {
@@ -56,7 +67,7 @@ export const certifications = [
 ];
 
 export const socials = [
-  { label: "GitHub", href: "https://github.com" },
-  { label: "LinkedIn", href: "https://linkedin.com" },
-  { label: "X", href: "https://x.com" },
+  { label: "GitHub", href: "https://github.com/Sikoo54" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/sacha-ahsan/" },
+  { label: "Instagram", href: "https://instagram.com/sacha.af" },
 ];

@@ -1,3 +1,8 @@
+// ============================================================
+// ROOT LAYOUT — font, tema, smooth scroll, grain, cursor,
+// navbar, dan preloader. Urutan mounting Preloader PALING AKHIR
+// penting (dia menunggu semua konten render sebelum intro).
+// ============================================================
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk, Instrument_Serif } from "next/font/google";
 import "./globals.css";

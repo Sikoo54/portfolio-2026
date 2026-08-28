@@ -1,3 +1,7 @@
+// ============================================================
+// MAGNETIC — wrapper agar elemen (tombol CTA) "menempel" ke
+// kursor: bergeser sedikit mengikuti posisi mouse (GSAP quickTo).
+// ============================================================
 "use client";
 
 import { useEffect, useRef, type ReactNode } from "react";

@@ -1,3 +1,7 @@
+// ============================================================
+// EDGE TEXT — teks kecil vertikal (writing-mode) di tepi kiri/
+// kanan section, ciri khas desain editorial/minimalis.
+// ============================================================
 export default function EdgeText({
   text,
   side = "left",

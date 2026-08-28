@@ -1,3 +1,9 @@
+// ============================================================
+// MOLTEN METAL — efek WebGL "logam cair" (lib ogl).
+// Shader fragment menghasilkan gradasi metalik mengalir;
+// dipakai di hero dengan palet hijau-nit + lime elektrik.
+// (Konversi dari komponen ReactBits ke TypeScript.)
+// ============================================================
 "use client";
 
 import { useEffect, useRef } from "react";

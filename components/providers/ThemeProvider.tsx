@@ -1,3 +1,7 @@
+// ============================================================
+// THEME PROVIDER — bungkus next-themes agar bisa dipakai
+// di client (dark/light mode via class di <html>).
+// ============================================================
 "use client";
 
 import { ThemeProvider as NextThemesProvider } from "next-themes";

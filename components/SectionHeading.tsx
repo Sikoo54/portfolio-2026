@@ -1,3 +1,8 @@
+// ============================================================
+// SECTION HEADING — format judul section konsisten:
+// index mono "(01)", judul uppercase, garis yang TERTARIK
+// (scaleX 0→1) saat section masuk layar (GSAP scrub).
+// ============================================================
 "use client";
 
 import { useEffect, useRef } from "react";

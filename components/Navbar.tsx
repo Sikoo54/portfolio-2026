@@ -1,10 +1,16 @@
+// ============================================================
+// NAVBAR + OVERLAY MENU — hamburger melayang (mix-blend
+// difference biar selalu terlihat). Overlay dibuka pakai
+// timeline GSAP: clip-path wipe + stagger link + meta.
+// Saat overlay terbuka Lenis di-stop (scroll bagian belakang
+// terkunci), Escape menutup.
+// ============================================================
 "use client";
 
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "@/lib/gsap";
 import { navLinks, site, socials } from "@/data/portfolio";
 import { stopLenis, startLenis } from "@/lib/lenis";
-import ThemeToggle from "@/components/ThemeToggle";
 
 export default function Navbar() {
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -149,9 +155,6 @@ export default function Navbar() {
               <div className="flex items-center gap-3 rounded-full border border-white/20 px-4 py-2 text-xs uppercase tracking-widest">
                 <span className="size-2 animate-pulse rounded-full bg-[#c6f24e]" />
                 {site.availability}
-              </div>
-              <div className="[&>button]:border-white/25 [&>button]:text-white/70 [&>button:hover]:border-[#c6f24e] [&>button:hover]:text-[#c6f24e]">
-                <ThemeToggle />
               </div>
             </div>
           </div>

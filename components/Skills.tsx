@@ -1,3 +1,11 @@
+// ============================================================
+// SKILLS (STACK) — 3 baris marquee chip skill yang jalan
+// kontinu (CSS keyframes, bukan GSAP) + showcase sertifikasi.
+// - Marquee duplikat konten otomatis sesuai lebar layar
+//   (useSeamlessSets) biar loop tanpa celah.
+// - Rows masuk dari kiri/kanan selang-seling (GSAP scrub);
+//   chip yang di-hover berubah lime.
+// ============================================================
 "use client";
 
 import { useEffect, useRef, useState } from "react";

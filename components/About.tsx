@@ -1,10 +1,28 @@
+// ============================================================
+// ABOUT — scrollytelling: GSAP ScrollTrigger PIN section di
+// viewport (persis Selected Work), scroll selama pinned dipakai
+// buat reveal SEMUA kata (3 paragraf + quotes) dari opacity 0→1
+// urut kiri→kanan. Kata "Fullstack" diberi aksen italic editorial.
+// ============================================================
 "use client";
 
-import { useEffect, useRef } from "react";
+import { Fragment, useEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap";
-import { aboutText } from "@/data/portfolio";
+import { aboutParas, quoteText } from "@/data/portfolio";
 import SectionHeading from "@/components/SectionHeading";
 import EdgeText from "@/components/ui/EdgeText";
+
+function Word({ word, i, accent }: { word: string; i: number; accent: boolean }) {
+  return (
+    <>
+      <span
+        className={`about-word inline-block ${accent ? "font-editorial italic text-accent" : ""}`}
+      >
+        {word}
+      </span>{" "}
+    </>
+  );
+}
 
 export default function About() {
   const ref = useRef<HTMLElement>(null);
@@ -17,7 +35,7 @@ export default function About() {
         scrollTrigger: {
           trigger: ref.current,
           start: "top top",
-          end: "+=150%",
+          end: "+=250%",
           pin: true,
           scrub: 1,
           anticipatePin: 1,
@@ -27,39 +45,48 @@ export default function About() {
       tl.fromTo(
         ".about-word",
         { opacity: 0 },
-        { opacity: 1, stagger: 0.03, ease: "none", duration: 0.4 },
+        { opacity: 1, stagger: 0.02, ease: "none", duration: 0.5 },
         0
-      ).to({}, { duration: 0.6 }, 0.4);
+      ).to({}, { duration: 0.5 }, 0.5);
     }, ref);
     return () => ctx.revert();
   }, []);
-
-  const words = aboutText.split(" ");
 
   return (
     <section
       ref={ref}
       id="about"
-      className="section-about relative h-svh overflow-hidden px-6 py-24 md:px-12 md:py-32"
+      className="section-about relative h-svh snap-start overflow-hidden px-6 py-20 md:px-12"
     >
       <div aria-hidden className="bg-panel-glow absolute inset-0 -z-20" />
       <EdgeText side="right" className="text-muted" text="Profile &mdash; who I am" />
-      <div className="relative flex h-full flex-col justify-center">
-        <SectionHeading index="01" title="About" />
+      <div className="pointer-events-none absolute inset-x-6 top-14 z-10 md:inset-x-12 md:top-20">
+        <SectionHeading index="01" title="About Me" />
+      </div>
+      <div className="relative flex h-full flex-col justify-center overflow-y-auto">
+        <div className="mx-auto -mt-10 w-full max-w-4xl pt-24 md:-mt-12 md:pt-28">
 
-        <p className="about-text max-w-5xl text-3xl font-medium leading-snug tracking-tight md:text-5xl">
-          {words.map((word, i) => {
-            const accent = word === "details." || word === "alive.";
-            return (
-              <span
-                key={i}
-                className={`about-word inline-block ${accent ? "font-editorial italic text-accent" : ""}`}
-              >
-                {word}
-              </span>
-            );
-          })}
-        </p>
+          {aboutParas.map((para, p) => (
+            <p
+              key={p}
+              className="mb-6 text-center font-editorial text-[1.6rem] font-normal leading-[1.45] tracking-tight text-foreground md:text-[1.85rem] md:leading-[1.4]"
+            >
+              {para.split(" ").map((word, i) => (
+                <Word key={`${p}-${i}`} word={word} i={i} accent={word === "Fullstack"} />
+              ))}
+            </p>
+          ))}
+
+          <blockquote className="mx-auto mt-10 max-w-2xl text-center font-editorial text-3xl italic leading-relaxed text-accent md:text-4xl">
+            &ldquo;
+            {quoteText.split(" ").map((word, i) => (
+              <Fragment key={i}>
+                <span className="about-word inline-block">{word}</span>{" "}
+              </Fragment>
+            ))}
+            &rdquo;
+          </blockquote>
+        </div>
       </div>
     </section>
   );

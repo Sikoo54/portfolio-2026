@@ -1,3 +1,9 @@
+// ============================================================
+// PRELOADER INTRO — layar pembuka: counter 0→100%, wordmark,
+// bar progress. Keluar curtain naik (border-radius). Saat selesai:
+// set window.__portfolioLoaded, start Lenis, buka kunci scroll,
+// dan kirim event "portfolio:loaded" agar Hero mulai animasinya.
+// ============================================================
 "use client";
 
 import { useEffect, useRef } from "react";
@@ -87,30 +93,45 @@ export default function Preloader() {
   return (
     <div
       ref={ref}
-      className="fixed inset-0 z-[95] flex flex-col justify-between overflow-hidden bg-[#0e0f0a] px-6 pb-6 pt-28 text-[#f0f2e6] md:px-12"
+      className="fixed inset-0 z-[95] flex flex-col justify-between overflow-hidden bg-[#c6f24e] px-6 pb-6 pt-28 text-[#141509] md:px-12"
     >
-      <div className="pre-fade flex justify-center overflow-hidden">
-        <span className="pre-word-inner block font-display text-3xl font-bold uppercase tracking-tight md:text-5xl">
-          SA<span className="text-[#c6f24e]">&copy;</span>
+      <div className="pre-fade flex items-center justify-end">
+        <div className="overflow-hidden">
+          <span className="pre-word-inner block font-mono text-[10px] uppercase tracking-[0.35em] text-[#141509]/60">
+            Bali &mdash; Indonesia &middot; 2026
+          </span>
+        </div>
+      </div>
+
+      <div className="flex flex-col items-center">
+        <span className="block overflow-hidden pb-1">
+          <span className="pre-word-inner block font-display text-[clamp(4rem,14vw,12rem)] font-bold uppercase leading-[0.9] tracking-tight">
+            Sacha
+          </span>
+        </span>
+        <span className="block overflow-hidden pb-4">
+          <span className="pre-word-inner block font-display text-[clamp(4rem,14vw,12rem)] font-bold uppercase leading-[0.9] tracking-tight">
+            Ahsan
+          </span>
         </span>
       </div>
 
       <div className="pre-fade flex items-end justify-between">
-        <div className="overflow-hidden">
-          <span className="pre-word-inner block font-mono text-[10px] uppercase tracking-[0.35em] text-white/50">
-            Sacha Ahsan &mdash; Portfolio &copy;2026
-          </span>
-        </div>
         <div className="flex items-start gap-2">
           <span className="pre-counter font-display text-[clamp(5rem,18vw,14rem)] font-bold leading-[0.8] tracking-tight">
             0
           </span>
-          <span className="mt-2 font-mono text-sm text-[#c6f24e]">%</span>
+          <span className="mt-2 font-mono text-sm text-[#141509]/70">%</span>
+        </div>
+        <div className="overflow-hidden pb-2">
+          <span className="pre-word-inner block font-mono text-[10px] uppercase tracking-[0.35em] text-[#141509]/60">
+            Loading experience
+          </span>
         </div>
       </div>
 
-      <div className="pre-fade absolute bottom-0 left-0 h-[2px] w-full bg-white/10">
-        <div className="pre-bar h-full w-full origin-left bg-[#c6f24e]" />
+      <div className="absolute bottom-0 left-0 h-[2px] w-full bg-[#141509]/20">
+        <div className="pre-bar h-full w-full origin-left bg-[#141509]" />
       </div>
     </div>
   );

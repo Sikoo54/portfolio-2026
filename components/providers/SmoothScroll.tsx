@@ -1,3 +1,8 @@
+// ============================================================
+// SMOOTH SCROLL — Lenis disinkronkan ke GSAP ticker supaya
+// ScrollTrigger mengikuti. Dipasang sekali di layout sebagai
+// wrapper. Reduced-motion: skip total.
+// ============================================================
 "use client";
 
 import { useEffect, type ReactNode } from "react";

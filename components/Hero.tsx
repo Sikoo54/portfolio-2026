@@ -1,10 +1,16 @@
+// ============================================================
+// HERO — section pembuka fullscreen, latar WebGL molten metal
+// hijau-lime. Title reveal via timeline yang PLAY saat event
+// "portfolio:loaded" (dari preloader). Saat About datang,
+// konten hero mengecil & memudar (scrub).
+// ============================================================
 "use client";
 
 import { useEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap";
 import { site } from "@/data/portfolio";
-import EdgeText from "@/components/ui/EdgeText";
 import MoltenMetal from "@/components/ui/MoltenMetal";
+import { ShinyText } from "@/components/ui/ShinyText";
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -47,18 +53,27 @@ export default function Hero() {
 
         const aboutPanel = document.querySelector("#about");
         if (aboutPanel) {
-          gsap.to(".hero-inner", {
-            scale: 0.95,
-            autoAlpha: 0.35,
-            yPercent: -4,
-            ease: "none",
+          gsap.timeline({
             scrollTrigger: {
               trigger: aboutPanel,
-              start: "top bottom",
-              end: "top top",
-              scrub: true,
+              start: "top 100%",
+              end: "top 30%",
+              scrub: 0.2,
+              invalidateOnRefresh: true,
             },
-          });
+          })
+            .fromTo(
+              ".hero-inner",
+              { transformOrigin: "50% 100%", rotateX: 0 },
+              {
+                yPercent: -32,
+                rotateX: 16,
+                autoAlpha: 0,
+                duration: 0.9,
+                ease: "power2.inOut",
+              },
+              0
+            );
         }
       }
     }, ref);
@@ -69,7 +84,7 @@ export default function Hero() {
   return (
     <section
       ref={ref}
-      className="relative z-0 h-svh overflow-hidden bg-[#0d0f08] px-6 pb-8 pt-28 md:px-12"
+      className="relative z-0 h-svh snap-start overflow-hidden bg-[#0d0f08] px-6 pb-8 pt-28 md:px-12 [perspective:1200px]"
     >
       <div className="absolute inset-0" aria-hidden>
         <MoltenMetal
@@ -95,31 +110,25 @@ export default function Hero() {
       </div>
       <div className="pointer-events-none absolute inset-0 bg-[#0d0f08]/30" aria-hidden />
 
-      <EdgeText side="left" className="text-white/40" text="6.2088&deg; S &mdash; 106.8456&deg; E" />
-      <EdgeText side="right" className="text-white/40" text="Folio &mdash; 2026" />
-
       <div className="hero-inner relative flex h-full flex-col justify-between text-[#f0f2e6]">
-        <div className="hero-fade flex items-center justify-between font-mono text-xs uppercase tracking-widest text-white/50">
-          <span>Portfolio &mdash; {new Date().getFullYear()}</span>
+        <div className="hero-fade flex items-center justify-end font-mono text-xs uppercase tracking-widest text-white/50">
           <span>Based in {site.location}</span>
         </div>
 
-        <h1 className="hero-title font-display font-bold uppercase leading-[0.88] tracking-tight">
+        <h1 className="hero-title text-center font-display font-bold uppercase leading-[0.88] tracking-tight">
           <span className="block overflow-hidden pb-1">
-            <span className="hero-line-inner block text-[clamp(3.5rem,14vw,12rem)]">{site.firstName}</span>
+            <span className="hero-line-inner block text-[clamp(3.5rem,14vw,12rem)]">
+              <ShinyText text={site.firstName} />
+            </span>
           </span>
           <span className="block overflow-hidden pb-2">
             <span className="hero-line-inner block text-[clamp(3.5rem,14vw,12rem)]">
-              {site.lastName}
-              <span className="text-[#c6f24e]" aria-hidden>
-                .
-              </span>
+              <ShinyText text={site.lastName} />
             </span>
           </span>
           <span className="block overflow-hidden">
-            <span className="hero-line-inner block pt-3 pb-3 text-[clamp(1rem,2.5vw,1.75rem)] font-medium normal-case tracking-normal text-white/60">
-              {site.role} &mdash; crafting interfaces that{" "}
-              <em className="font-editorial text-[#f2ffd9]">move</em>
+            <span className="hero-line-inner block pt-3 pb-3 font-display text-[clamp(1.1rem,2.8vw,2rem)] font-medium normal-case tracking-normal text-white/70">
+              {site.role}
             </span>
           </span>
         </h1>
