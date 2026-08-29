@@ -222,9 +222,27 @@ export default function Contact() {
               <path d="M7 7h10v10" />
             </svg>
           </a>
-          <p className="font-mono text-[10px] uppercase tracking-widest text-[#141509]/60">
-            Usually reply within 24 hours
-          </p>
+          <div className="flex items-center gap-4">
+            <a
+              href="#top"
+              className="group inline-flex items-center gap-3 rounded-full border border-[#141509]/40 px-6 py-2.5 text-xs font-semibold uppercase tracking-widest transition-colors hover:bg-[#141509] hover:text-[#c6f24e]"
+            >
+              Download CV
+              <svg
+                className="size-4 transition-transform duration-300 group-hover:translate-y-0.5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M12 3v12" />
+                <path d="M7 10l5 5 5-5" />
+                <path d="M5 21h14" />
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
     </section>

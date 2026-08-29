@@ -50,24 +50,24 @@ const rows: { label: string; items: Skill[] }[] = [
     ],
   },
   {
-    label: "Tooling & Workflow",
+    label: "Data & Workflow",
     items: [
-      { name: "Node.js", Icon: SiNodedotjs },
+      { name: "PostgreSQL", Icon: SiPostgresql },
+      { name: "Prisma", Icon: SiPrisma },
+      { name: "Redux", Icon: SiRedux },
       { name: "Git", Icon: SiGit },
       { name: "GitHub", Icon: SiGithub },
-      { name: "Figma", Icon: SiFigma },
-      { name: "GraphQL", Icon: SiGraphql },
       { name: "Vercel", Icon: SiVercel },
     ],
   },
   {
-    label: "Data & Motion",
+    label: "Tooling & Design",
     items: [
       { name: "GSAP", Icon: SiGreensock },
-      { name: "Redux", Icon: SiRedux },
+      { name: "Figma", Icon: SiFigma },
+      { name: "Node.js", Icon: SiNodedotjs },
+      { name: "GraphQL", Icon: SiGraphql },
       { name: "Sass", Icon: SiSass },
-      { name: "PostgreSQL", Icon: SiPostgresql },
-      { name: "Prisma", Icon: SiPrisma },
       { name: "Vite", Icon: SiVite },
     ],
   },
@@ -230,19 +230,26 @@ export default function Skills() {
           Certifications
         </p>
         <div className="flex flex-wrap gap-3 px-6 md:gap-4 md:px-12">
-          {certifications.map((cert) => (
-            <div
-              key={cert.name}
-              data-cursor
-              className="cert-card flex items-center gap-3 rounded-full border border-line bg-background px-5 py-3.5 transition-colors duration-300 hover:border-accent"
-            >
-              <span className="font-mono text-[10px] uppercase tracking-widest text-accent">
-                Cert&nbsp;{cert.year}
-              </span>
-              <span className="text-sm font-semibold tracking-tight">{cert.name}</span>
-              <span className="hidden text-xs text-muted sm:inline">&mdash; {cert.issuer}</span>
-            </div>
-          ))}
+          {certifications.map((cert) => {
+            const Tag = cert.link ? "a" : "div";
+            const props = cert.link
+              ? { href: cert.link, target: "_blank", rel: "noreferrer" }
+              : {};
+            return (
+              <Tag
+                key={cert.name}
+                data-cursor
+                {...props}
+                className="cert-card flex items-center gap-3 rounded-full border border-line bg-background px-5 py-3.5 transition-colors duration-300 hover:border-accent"
+              >
+                <span className="font-mono text-[10px] uppercase tracking-widest text-accent">
+                  Cert&nbsp;{cert.year}
+                </span>
+                <span className="text-sm font-semibold tracking-tight">{cert.name}</span>
+                <span className="hidden text-xs text-muted sm:inline">&mdash; {cert.issuer}</span>
+              </Tag>
+            );
+          })}
         </div>
       </div>
     </section>

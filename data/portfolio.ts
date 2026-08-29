@@ -66,9 +66,24 @@ export const projects: Project[] = [
 ];
 
 export const certifications = [
-  { name: "Meta Front-End Developer", issuer: "Coursera", year: "2024" },
-  { name: "AWS Certified Cloud Practitioner", issuer: "Amazon Web Services", year: "2023" },
-  { name: "Responsive Web Design", issuer: "freeCodeCamp", year: "2022" },
+  {
+    name: "Front-End Developer Expert",
+    issuer: "Dicoding",
+    year: "2024",
+    link: "https://www.dicoding.com/certificates/L4PQ5VY92ZO1",
+  },
+  {
+    name: "Back-End JavaScript Development",
+    issuer: "Dicoding",
+    year: "2024",
+    link: "https://www.dicoding.com/certificates/MRZMYM400ZYQ",
+  },
+  {
+    name: "Full Stack Next JS",
+    issuer: "WPU Course",
+    year: "2026",
+    link: "https://learn.wpucourse.id/certificate/URC46HDR",
+  },
 ];
 
 export const socials = [
