@@ -224,7 +224,8 @@ export default function Contact() {
           </a>
           <div className="flex items-center gap-4">
             <a
-              href="#top"
+              href="/cv.pdf"
+              download
               className="group inline-flex items-center gap-3 rounded-full border border-[#141509]/40 px-6 py-2.5 text-xs font-semibold uppercase tracking-widest transition-colors hover:bg-[#141509] hover:text-[#c6f24e]"
             >
               Download CV
