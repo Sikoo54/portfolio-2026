@@ -3,6 +3,11 @@
 // Shader fragment menghasilkan gradasi metalik mengalir;
 // dipakai di hero dengan palet hijau-nit + lime elektrik.
 // (Konversi dari komponen ReactBits ke TypeScript.)
+//
+// Performance: GL context DI-DISPOSE penuh (loseContext +
+// canvas dibuang) saat keluar viewport (IntersectionObserver),
+// dan di-reinit ulang kalau masuk lagi. Props dibaca via ref
+// supaya create() selalu pakai nilai terbaru.
 // ============================================================
 "use client";
 
@@ -143,177 +148,217 @@ type MoltenCtx = {
 
 const ctxMap = new WeakMap<HTMLDivElement, MoltenCtx>();
 
-export default function MoltenMetal({
-  color1 = "#5227FF",
-  color2 = "#FF9FFC",
-  color3 = "#FFFFFF",
-  speed = 0.35,
-  scale = 4,
-  detail = 3,
-  glow = 1.6,
-  coreSize = 0.1,
-  swirl = 1,
-  fold = -0.2,
-  blackPoint = 0.05,
-  brightness = 1.3,
-  colorMode = "molten",
-  grain = true,
-  grainIntensity = 0.05,
-  mouseInteraction = true,
-  mouseStrength = 0.3,
-  opacity = 1.0,
-  className = "",
-}: MoltenMetalProps) {
+export default function MoltenMetal(props: MoltenMetalProps) {
+  const {
+    color1 = "#5227FF",
+    color2 = "#FF9FFC",
+    color3 = "#FFFFFF",
+    speed = 0.35,
+    scale = 4,
+    detail = 3,
+    glow = 1.6,
+    coreSize = 0.1,
+    swirl = 1,
+    fold = -0.2,
+    blackPoint = 0.05,
+    brightness = 1.3,
+    colorMode = "molten",
+    grain = true,
+    grainIntensity = 0.05,
+    mouseInteraction = true,
+    mouseStrength = 0.3,
+    opacity = 1.0,
+    className = "",
+  } = props;
+
   const containerRef = useRef<HTMLDivElement>(null);
+  const propsRef = useRef(props);
+  propsRef.current = props;
 
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
-    const renderer = new Renderer({
-      webgl: 2,
-      alpha: true,
-      premultipliedAlpha: true,
-      antialias: false,
-      dpr: Math.min(window.devicePixelRatio || 1, 2),
-    });
+    let ctx: MoltenCtx | null = null;
+    let ro: ResizeObserver | null = null;
+    let raf = 0;
+    let t0 = 0;
 
-    const gl = renderer.gl;
-    gl.clearColor(0, 0, 0, 0);
-    const canvas = gl.canvas;
-    canvas.style.width = "100%";
-    canvas.style.height = "100%";
-    canvas.style.display = "block";
-    container.appendChild(canvas);
-
-    const geometry = new Triangle(gl);
-    const program = new Program(gl, {
-      vertex,
-      fragment,
-      uniforms: {
-        iTime: { value: 0 },
-        iResolution: { value: new Float32Array([1, 1]) },
-        uSpeed: { value: 0.35 },
-        uScale: { value: 4 },
-        uDetail: { value: 3 },
-        uGlow: { value: 1.6 },
-        uCoreSize: { value: 0.1 },
-        uSwirl: { value: 1 },
-        uFold: { value: -0.2 },
-        uBlackPoint: { value: 0.05 },
-        uBrightness: { value: 1.3 },
-        uColorMode: { value: 0 },
-        uGrain: { value: 1 },
-        uGrainIntensity: { value: 0.05 },
-        uOpacity: { value: 1.0 },
-        uMouse: { value: new Float32Array([0.5, 0.5]) },
-        uMouseStrength: { value: 0.3 },
-        uEnableMouse: { value: true },
-        uColor1: { value: new Float32Array([1, 1, 1]) },
-        uColor2: { value: new Float32Array([1, 1, 1]) },
-        uColor3: { value: new Float32Array([1, 1, 1]) },
-      },
-    });
-
-    const mesh = new Mesh(gl, { geometry, program });
-    ctxMap.set(container, { renderer, program, mesh });
-
-    const setSize = () => {
-      const rect = container.getBoundingClientRect();
-      const w = Math.max(1, Math.floor(rect.width));
-      const h = Math.max(1, Math.floor(rect.height));
-      renderer.setSize(w, h);
-      const res = program.uniforms.iResolution.value as Float32Array;
-      res[0] = gl.drawingBufferWidth;
-      res[1] = gl.drawingBufferHeight;
-      renderer.render({ scene: mesh });
+    const onMouseMove = (e: MouseEvent) => {
+      if (!ctx) return;
+      const gl = ctx.renderer.gl;
+      const rect = gl.canvas.getBoundingClientRect();
+      targetMouse[0] = (e.clientX - rect.left) / rect.width;
+      targetMouse[1] = 1.0 - (e.clientY - rect.top) / rect.height;
     };
-
-    const ro = new ResizeObserver(setSize);
-    ro.observe(container);
-    setSize();
+    const onMouseLeave = () => {
+      targetMouse[0] = 0.5;
+      targetMouse[1] = 0.5;
+    };
 
     const targetMouse = [0.5, 0.5];
     const currentMouse = [0.5, 0.5];
 
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      targetMouse[0] = (e.clientX - rect.left) / rect.width;
-      targetMouse[1] = 1.0 - (e.clientY - rect.top) / rect.height;
-    };
-    const handleMouseLeave = () => {
-      targetMouse[0] = 0.5;
-      targetMouse[1] = 0.5;
-    };
-    canvas.addEventListener("mousemove", handleMouseMove);
-    canvas.addEventListener("mouseleave", handleMouseLeave);
-
-    let raf = 0;
-    let isVisible = true;
-    let isPageVisible = !document.hidden;
-    const t0 = performance.now();
-
     const loop = (t: number) => {
-      program.uniforms.iTime.value = (t - t0) * 0.001;
+      if (!ctx) return;
+      ctx.program.uniforms.iTime.value = (t - t0) * 0.001;
       currentMouse[0] += 0.05 * (targetMouse[0] - currentMouse[0]);
       currentMouse[1] += 0.05 * (targetMouse[1] - currentMouse[1]);
-      (program.uniforms.uMouse.value as Float32Array)[0] = currentMouse[0];
-      (program.uniforms.uMouse.value as Float32Array)[1] = currentMouse[1];
-      renderer.render({ scene: mesh });
+      (ctx.program.uniforms.uMouse.value as Float32Array)[0] = currentMouse[0];
+      (ctx.program.uniforms.uMouse.value as Float32Array)[1] = currentMouse[1];
+      ctx.renderer.render({ scene: ctx.mesh });
       raf = requestAnimationFrame(loop);
     };
 
-    const tryStart = () => {
-      if (isVisible && isPageVisible && raf === 0) raf = requestAnimationFrame(loop);
+    const syncUniforms = () => {
+      if (!ctx) return;
+      const p = propsRef.current;
+      const u = ctx.program.uniforms;
+      u.uSpeed.value = p.speed ?? 0.35;
+      u.uScale.value = p.scale ?? 4;
+      u.uDetail.value = p.detail ?? 3;
+      u.uGlow.value = p.glow ?? 1.6;
+      u.uCoreSize.value = Math.max(p.coreSize ?? 0.1, 0.001);
+      u.uSwirl.value = p.swirl ?? 1;
+      u.uFold.value = p.fold ?? -0.2;
+      u.uBlackPoint.value = p.blackPoint ?? 0.05;
+      u.uBrightness.value = p.brightness ?? 1.3;
+      u.uColorMode.value = colorModeToFloat(p.colorMode ?? "molten");
+      u.uGrain.value = p.grain ?? true ? 1 : 0;
+      u.uGrainIntensity.value = p.grainIntensity ?? 0.05;
+      u.uOpacity.value = p.opacity ?? 1;
+      u.uMouseStrength.value = p.mouseStrength ?? 0.3;
+      u.uEnableMouse.value = p.mouseInteraction ?? true;
+      (u.uColor1.value as Float32Array).set(hexToRgb(p.color1 ?? "#5227FF"));
+      (u.uColor2.value as Float32Array).set(hexToRgb(p.color2 ?? "#FF9FFC"));
+      (u.uColor3.value as Float32Array).set(hexToRgb(p.color3 ?? "#FFFFFF"));
     };
-    const tryStop = () => {
-      if (raf !== 0) {
-        cancelAnimationFrame(raf);
-        raf = 0;
-      }
+
+    const setSize = () => {
+      if (!ctx) return;
+      const rect = container.getBoundingClientRect();
+      const w = Math.max(1, Math.floor(rect.width));
+      const h = Math.max(1, Math.floor(rect.height));
+      ctx.renderer.setSize(w, h);
+      const res = ctx.program.uniforms.iResolution.value as Float32Array;
+      res[0] = ctx.renderer.gl.drawingBufferWidth;
+      res[1] = ctx.renderer.gl.drawingBufferHeight;
+      ctx.renderer.render({ scene: ctx.mesh });
+    };
+
+    const createGl = () => {
+      if (ctx) return;
+
+      const renderer = new Renderer({
+        webgl: 2,
+        alpha: true,
+        premultipliedAlpha: true,
+        antialias: false,
+        dpr: Math.min(window.devicePixelRatio || 1, 2),
+      });
+
+      const gl = renderer.gl;
+      gl.clearColor(0, 0, 0, 0);
+      const canvas = gl.canvas;
+      canvas.style.width = "100%";
+      canvas.style.height = "100%";
+      canvas.style.display = "block";
+      container.appendChild(canvas);
+
+      const geometry = new Triangle(gl);
+      const program = new Program(gl, {
+        vertex,
+        fragment,
+        uniforms: {
+          iTime: { value: 0 },
+          iResolution: { value: new Float32Array([1, 1]) },
+          uSpeed: { value: 0.35 },
+          uScale: { value: 4 },
+          uDetail: { value: 3 },
+          uGlow: { value: 1.6 },
+          uCoreSize: { value: 0.1 },
+          uSwirl: { value: 1 },
+          uFold: { value: -0.2 },
+          uBlackPoint: { value: 0.05 },
+          uBrightness: { value: 1.3 },
+          uColorMode: { value: 0 },
+          uGrain: { value: 1 },
+          uGrainIntensity: { value: 0.05 },
+          uOpacity: { value: 1.0 },
+          uMouse: { value: new Float32Array([0.5, 0.5]) },
+          uMouseStrength: { value: 0.3 },
+          uEnableMouse: { value: true },
+          uColor1: { value: new Float32Array([1, 1, 1]) },
+          uColor2: { value: new Float32Array([1, 1, 1]) },
+          uColor3: { value: new Float32Array([1, 1, 1]) },
+        },
+      });
+
+      const mesh = new Mesh(gl, { geometry, program });
+      ctx = { renderer, program, mesh };
+      ctxMap.set(container, ctx);
+
+      syncUniforms();
+
+      ro = new ResizeObserver(setSize);
+      ro.observe(container);
+      setSize();
+
+      canvas.addEventListener("mousemove", onMouseMove);
+      canvas.addEventListener("mouseleave", onMouseLeave);
+
+      t0 = performance.now();
+      raf = requestAnimationFrame(loop);
+    };
+
+    const destroyGl = () => {
+      if (!ctx) return;
+      cancelAnimationFrame(raf);
+      raf = 0;
+      ro?.disconnect();
+      ro = null;
+      const gl = ctx.renderer.gl;
+      gl.canvas.removeEventListener("mousemove", onMouseMove);
+      gl.canvas.removeEventListener("mouseleave", onMouseLeave);
+      ctxMap.delete(container);
+      try {
+        container.removeChild(gl.canvas);
+      } catch {}
+      gl.getExtension("WEBGL_lose_context")?.loseContext();
+      ctx = null;
     };
 
     const io = new IntersectionObserver(
       ([entry]) => {
-        isVisible = entry.isIntersecting;
-        if (isVisible) tryStart();
-        else tryStop();
+        if (entry.isIntersecting) createGl();
+        else destroyGl();
       },
       { threshold: 0 }
     );
     io.observe(container);
 
     const onVisibility = () => {
-      isPageVisible = !document.hidden;
-      if (isPageVisible) tryStart();
-      else tryStop();
+      if (document.hidden) destroyGl();
+      else if (container.getBoundingClientRect().height > 0 && !ctx) createGl();
     };
     document.addEventListener("visibilitychange", onVisibility);
 
-    tryStart();
+    createGl();
 
     return () => {
-      tryStop();
-      ro.disconnect();
       io.disconnect();
       document.removeEventListener("visibilitychange", onVisibility);
-      canvas.removeEventListener("mousemove", handleMouseMove);
-      canvas.removeEventListener("mouseleave", handleMouseLeave);
-      ctxMap.delete(container);
-      try {
-        container.removeChild(canvas);
-      } catch {}
-      gl.getExtension("WEBGL_lose_context")?.loseContext();
+      destroyGl();
     };
   }, []);
 
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
-    const ctx = ctxMap.get(container);
-    if (!ctx) return;
-    const u = ctx.program.uniforms;
-
+    const c = ctxMap.get(container);
+    if (!c) return;
+    const u = c.program.uniforms;
+    const p = propsRef.current;
     u.uSpeed.value = speed;
     u.uScale.value = scale;
     u.uDetail.value = detail;
@@ -330,12 +375,9 @@ export default function MoltenMetal({
     u.uMouseStrength.value = mouseStrength;
     u.uEnableMouse.value = mouseInteraction;
 
-    const uc1 = u.uColor1.value as Float32Array;
-    const uc2 = u.uColor2.value as Float32Array;
-    const uc3 = u.uColor3.value as Float32Array;
-    uc1.set(hexToRgb(color1));
-    uc2.set(hexToRgb(color2));
-    uc3.set(hexToRgb(color3));
+    (u.uColor1.value as Float32Array).set(hexToRgb(color1));
+    (u.uColor2.value as Float32Array).set(hexToRgb(color2));
+    (u.uColor3.value as Float32Array).set(hexToRgb(color3));
   }, [
     color1,
     color2,

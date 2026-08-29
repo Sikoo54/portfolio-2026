@@ -9,9 +9,8 @@
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap";
-import { projects, socials } from "@/data/portfolio";
+import { projects, socials, type Project } from "@/data/portfolio";
 import SectionHeading from "@/components/SectionHeading";
-import EdgeText from "@/components/ui/EdgeText";
 
 function ArrowUpRight({ className = "" }: { className?: string }) {
   return (
@@ -29,6 +28,60 @@ function ArrowUpRight({ className = "" }: { className?: string }) {
     >
       <path d="M7 17 17 7M7 7h10v10" />
     </svg>
+  );
+}
+
+const cardClass =
+  "project-card group flex w-[82vw] shrink-0 flex-col border border-line bg-panel transition-colors duration-300 hover:border-foreground sm:w-[62vw] lg:w-[42vw]";
+
+function ProjectCard({ project, i }: { project: Project; i: number }) {
+  const inner = (
+    <>
+      <div className="relative aspect-[16/10] overflow-hidden border-b border-line">
+        <Image
+          src={project.image}
+          alt={`${project.title} — ${project.category}`}
+          fill
+          sizes="(max-width: 640px) 85vw, (max-width: 1024px) 65vw, 45vw"
+          className="object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+      </div>
+      <div className="flex flex-1 flex-col p-6 md:p-8">
+        <div className="flex items-baseline justify-between gap-4">
+          <h3 className="font-display text-2xl font-bold uppercase tracking-tight md:text-4xl">
+            {project.title}
+          </h3>
+          <span className="font-mono text-xs text-muted">0{i + 1}</span>
+        </div>
+        <p className="mt-2 text-sm text-muted md:text-base">{project.description}</p>
+        <div className="mt-auto flex items-center justify-between pt-6 md:pt-8">
+          <span className="font-mono text-xs uppercase tracking-widest text-muted">
+            {project.category} &mdash; {project.year}
+          </span>
+          <ArrowUpRight className="text-muted transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-accent" />
+        </div>
+      </div>
+    </>
+  );
+
+  if (project.link) {
+    return (
+      <a
+        href={project.link}
+        target="_blank"
+        rel="noreferrer"
+        data-cursor-label="VIEW"
+        className={cardClass}
+      >
+        {inner}
+      </a>
+    );
+  }
+
+  return (
+    <article data-cursor-label="VIEW" className={cardClass}>
+      {inner}
+    </article>
   );
 }
 
@@ -105,7 +158,6 @@ export default function Projects() {
       id="work"
       className="section-dark relative isolate flex h-svh flex-col justify-center overflow-hidden border-t border-line bg-canvas py-20"
     >
-      <EdgeText side="left" className="text-muted" text="Selected work &mdash; 24&thinsp;/&thinsp;26" />
 
       <div className="px-6 md:px-12">
         <SectionHeading index="03" title="Selected Work" />
@@ -114,36 +166,7 @@ export default function Projects() {
       <div className="mt-4">
         <div ref={trackRef} className="flex w-max items-stretch gap-5 pl-6 pr-[12vw] md:gap-8 md:pl-12">
           {projects.map((project, i) => (
-            <article
-              key={project.title}
-              data-cursor-label="VIEW"
-              className="project-card group flex w-[82vw] shrink-0 flex-col border border-line bg-panel transition-colors duration-300 hover:border-foreground sm:w-[62vw] lg:w-[42vw]"
-            >
-              <div className="relative aspect-[16/10] overflow-hidden border-b border-line">
-                <Image
-                  src={project.image}
-                  alt={`${project.title} — ${project.category}`}
-                  fill
-                  sizes="(max-width: 640px) 85vw, (max-width: 1024px) 65vw, 45vw"
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-              </div>
-              <div className="flex flex-1 flex-col p-6 md:p-8">
-                <div className="flex items-baseline justify-between gap-4">
-                  <h3 className="font-display text-2xl font-bold uppercase tracking-tight md:text-4xl">
-                    {project.title}
-                  </h3>
-                  <span className="font-mono text-xs text-muted">0{i + 1}</span>
-                </div>
-                <p className="mt-2 text-sm text-muted md:text-base">{project.description}</p>
-                <div className="mt-auto flex items-center justify-between pt-6 md:pt-8">
-                  <span className="font-mono text-xs uppercase tracking-widest text-muted">
-                    {project.category} &mdash; {project.year}
-                  </span>
-                  <ArrowUpRight className="text-muted transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-accent" />
-                </div>
-              </div>
-            </article>
+            <ProjectCard key={project.title} project={project} i={i} />
           ))}
 
           <a

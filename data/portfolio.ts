@@ -29,34 +29,39 @@ export const aboutParas = [
 
 export const quoteText = "Every project is a lesson, every bug is a teacher.";
 
-export const projects = [
+export type Project = {
+  title: string;
+  category: string;
+  year: string;
+  description: string;
+  image: string;
+  link?: string;
+};
+
+export const projects: Project[] = [
   {
-    title: "Lumen",
+    title: "Sikozy",
+    category: "Audio App",
+    year: "2026",
+    description: "Lofi hiphop player with focus timer, todo list & ambient visuals",
+    image: "/projects/p2.svg",
+    link: "https://sikozy.vercel.app/",
+  },
+  {
+    title: "SICKS",
     category: "E-commerce",
     year: "2026",
-    description: "Headless storefront, 98 Lighthouse score",
-    image: "/projects/p1.svg",
-  },
-  {
-    title: "Pulse",
-    category: "SaaS Dashboard",
-    year: "2025",
-    description: "Realtime analytics platform UI",
-    image: "/projects/p2.svg",
-  },
-  {
-    title: "Orbit",
-    category: "Marketing Site",
-    year: "2025",
-    description: "Scroll-driven storytelling landing page",
+    description: "Streetwear sneaker store with weekly drops, cart & secure checkout",
     image: "/projects/p3.svg",
+    link: "https://sicks-store.vercel.app/",
   },
   {
-    title: "Atlas",
-    category: "Design System",
-    year: "2024",
-    description: "60+ accessible components with docs",
-    image: "/projects/p4.svg",
+    title: "Café Leblanc",
+    category: "POS System",
+    year: "2026",
+    description: "Point of sale terminal with fast checkout, live stock & reports",
+    image: "/projects/p1.svg",
+    link: "https://cafeleblanc.vercel.app/",
   },
 ];
 

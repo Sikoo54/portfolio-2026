@@ -1,5 +1,81 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
-  <rect width="1200" height="800" fill="#c4b8bd"/>
-  <rect x="80" y="80" width="80" height="80" fill="#ff4d00"/>
-  <text x="60" y="720" font-family="monospace" font-size="280" font-weight="bold" fill="#a2939c">03</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#111114"/>
+      <stop offset="100%" stop-color="#0a0a0c"/>
+    </linearGradient>
+    <linearGradient id="bolt" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F3F1EA"/>
+      <stop offset="100%" stop-color="#c8c6bf"/>
+    </linearGradient>
+    <pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="1.2" fill="#F3F1EA" opacity="0.08"/>
+    </pattern>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="20" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="url(#bg)"/>
+  <rect width="800" height="500" fill="url(#dots)"/>
+
+  <!-- Blue glow -->
+  <circle cx="400" cy="220" r="180" fill="#2B5CFF" opacity="0.08" filter="url(#glow)"/>
+
+  <!-- Blue card frame -->
+  <rect x="280" y="80" width="240" height="320" rx="4" fill="none" stroke="#2B5CFF" stroke-width="2" opacity="0.3"/>
+  <rect x="280" y="80" width="240" height="320" rx="4" fill="#2B5CFF" opacity="0.06"/>
+
+  <!-- Inner card -->
+  <rect x="296" y="96" width="208" height="288" rx="2" fill="#1a1a1e" stroke="#F3F1EA" stroke-width="1" opacity="0.15"/>
+
+  <!-- Lightning bolt -->
+  <g transform="translate(400,210)" filter="url(#glow)">
+    <path d="M30,-80 L-30,10 H10 L-10,80 L30,-10 H-10 Z" fill="url(#bolt)"/>
+    <path d="M26,-72 L-22,10 H8 L-8,72 L26,-12 H-6 Z" fill="#111114" opacity="0.85"/>
+  </g>
+
+  <!-- Corner dots (matching icon pattern) -->
+  <g fill="#F3F1EA" opacity="0.12">
+    <circle cx="40" cy="40" r="3"/>
+    <circle cx="40" cy="60" r="3"/>
+    <circle cx="60" cy="40" r="3"/>
+    <circle cx="40" cy="80" r="3"/>
+    <circle cx="60" cy="60" r="3"/>
+    <circle cx="80" cy="40" r="3"/>
+
+    <circle cx="760" cy="40" r="3"/>
+    <circle cx="740" cy="40" r="3"/>
+    <circle cx="760" cy="60" r="3"/>
+    <circle cx="720" cy="40" r="3"/>
+    <circle cx="740" cy="60" r="3"/>
+    <circle cx="760" cy="80" r="3"/>
+
+    <circle cx="40" cy="460" r="3"/>
+    <circle cx="40" cy="440" r="3"/>
+    <circle cx="60" cy="460" r="3"/>
+    <circle cx="80" cy="460" r="3"/>
+    <circle cx="60" cy="440" r="3"/>
+    <circle cx="40" cy="420" r="3"/>
+
+    <circle cx="760" cy="460" r="3"/>
+    <circle cx="740" cy="460" r="3"/>
+    <circle cx="760" cy="440" r="3"/>
+    <circle cx="720" cy="460" r="3"/>
+    <circle cx="740" cy="440" r="3"/>
+    <circle cx="760" cy="420" r="3"/>
+  </g>
+
+  <!-- Blue accent lines -->
+  <g stroke="#2B5CFF" stroke-width="1.5" opacity="0.25">
+    <line x1="30" y1="120" x2="250" y2="120"/>
+    <line x1="550" y1="120" x2="770" y2="120"/>
+    <line x1="30" y1="380" x2="250" y2="380"/>
+    <line x1="550" y1="380" x2="770" y2="380"/>
+  </g>
+
+  <!-- Text -->
+  <text x="400" y="450" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="14" font-weight="700" fill="#F3F1EA" letter-spacing="0.3em" opacity="0.2">SICKS</text>
 </svg>

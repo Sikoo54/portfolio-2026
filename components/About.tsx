@@ -63,21 +63,21 @@ export default function About() {
       <div className="pointer-events-none absolute inset-x-6 top-14 z-10 md:inset-x-12 md:top-20">
         <SectionHeading index="01" title="About Me" />
       </div>
-      <div className="relative flex h-full flex-col justify-center overflow-y-auto">
-        <div className="mx-auto -mt-10 w-full max-w-4xl pt-24 md:-mt-12 md:pt-28">
+      <div className="relative flex h-full flex-col justify-center">
+        <div className="mx-auto w-full max-w-4xl pt-16 md:pt-28">
 
           {aboutParas.map((para, p) => (
             <p
               key={p}
-              className="mb-6 text-center font-editorial text-[1.6rem] font-normal leading-[1.45] tracking-tight text-foreground md:text-[1.85rem] md:leading-[1.4]"
+              className="mb-4 text-center font-editorial text-[1.15rem] font-normal leading-[1.55] tracking-tight text-foreground md:mb-6 md:text-[1.85rem] md:leading-[1.4]"
             >
               {para.split(" ").map((word, i) => (
-                <Word key={`${p}-${i}`} word={word} i={i} accent={word === "Fullstack"} />
+                <Word key={`${p}-${i}`} word={word} i={i} accent={false} />
               ))}
             </p>
           ))}
 
-          <blockquote className="mx-auto mt-10 max-w-2xl text-center font-editorial text-3xl italic leading-relaxed text-accent md:text-4xl">
+          <blockquote className="mx-auto mt-6 max-w-2xl text-center font-editorial text-2xl italic leading-relaxed text-accent md:mt-12 md:text-4xl">
             &ldquo;
             {quoteText.split(" ").map((word, i) => (
               <Fragment key={i}>

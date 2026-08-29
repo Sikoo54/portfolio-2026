@@ -96,6 +96,7 @@ export default function Navbar() {
         type="button"
         aria-label="Toggle menu"
         aria-expanded={open}
+        aria-controls="site-menu"
         onClick={() => setOpen((v) => !v)}
         className={`fixed right-6 top-6 z-[70] flex size-11 items-center justify-center rounded-full border transition-colors duration-300 md:right-12 md:top-8 ${
           open
@@ -109,6 +110,10 @@ export default function Navbar() {
 
       <div
         ref={overlayRef}
+        id="site-menu"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Site navigation"
         className="invisible fixed inset-0 z-[55] bg-[#0e0f0a] text-[#f0f2e6]"
         style={{ clipPath: "inset(0 0 100% 0)" }}
       >
