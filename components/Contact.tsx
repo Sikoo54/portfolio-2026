@@ -85,7 +85,7 @@ export default function Contact() {
     <section
       ref={ref}
       id="contact"
-      className="relative flex h-svh flex-col overflow-hidden bg-accent-bright pt-24 pb-6 text-[#141509] md:pt-32 md:pb-8"
+      className="relative flex min-h-svh flex-col overflow-hidden bg-accent-bright pt-24 pb-6 text-[#141509] md:h-svh md:overflow-hidden md:pt-32 md:pb-8"
     >
       <EdgeText side="left" className="text-[#141509]/50" text="Say hello &mdash; don&rsquo;t be shy" />
       <div className="pointer-events-none absolute inset-x-6 top-14 z-10 md:inset-x-12 md:top-20 [&_h2]:text-[#141509]/60 [&_span.sh-line]:bg-[#141509]/20 [&_span.font-mono]:text-[#141509]">

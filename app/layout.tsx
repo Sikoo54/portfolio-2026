@@ -7,7 +7,6 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk, Instrument_Serif } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import SmoothScroll from "@/components/providers/SmoothScroll";
 import Preloader from "@/components/Preloader";
 import Cursor from "@/components/ui/Cursor";
@@ -113,8 +112,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           Skip to content
         </a>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <SmoothScroll>
+        <SmoothScroll>
             <div aria-hidden className="atmosphere pointer-events-none fixed inset-0 z-0" />
             <div aria-hidden className="grain pointer-events-none fixed inset-0 z-[80] opacity-40" />
             <Cursor />
@@ -122,7 +120,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <main id="main">{children}</main>
             <Preloader />
           </SmoothScroll>
-        </ThemeProvider>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

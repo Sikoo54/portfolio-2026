@@ -7,24 +7,7 @@
    ============================================================ */
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
-
 :root {
-  --canvas: #f4f5ec;
-  --panel: #fcfcf4;
-  --foreground: #141509;
-  --muted: #74776a;
-  --line: #e3e5d6;
-  --accent: #7fa51d;
-  --accent-bright: #c6f24e;
-  --atmo-a: rgba(127, 165, 29, 0.16);
-  --atmo-b: rgba(198, 242, 78, 0.2);
-  --atmo-ink: rgba(20, 21, 9, 0.06);
-  --panel-glow-a: rgba(198, 242, 78, 0.1);
-  --panel-glow-b: rgba(127, 165, 29, 0.08);
-}
-
-.dark {
   --canvas: #0e0f0a;
   --panel: #161810;
   --foreground: #f0f2e6;
@@ -103,9 +86,6 @@ body {
 
 /* Section-specific backgrounds (scope tokens per section) */
 .section-about {
-  --panel: #eeeed9;
-}
-.dark .section-about {
   --panel: #161810;
 }
 

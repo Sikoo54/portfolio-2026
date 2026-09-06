@@ -111,32 +111,15 @@ export default function Projects() {
         }
       );
 
-      const proxy = { skew: 0 };
-      const skewSetter = gsap.quickSetter(".project-card", "skewX", "deg");
-      const clampSkew = gsap.utils.clamp(-6, 6);
-
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: ref.current,
           start: "top top",
           end: () => `+=${getAmount()}`,
-          scrub: 1,
+          scrub: 0.5,
           pin: true,
           anticipatePin: 1,
           invalidateOnRefresh: true,
-          onUpdate: (self) => {
-            const skew = clampSkew(self.getVelocity() / -350);
-            if (Math.abs(skew) > Math.abs(proxy.skew)) {
-              proxy.skew = skew;
-              gsap.to(proxy, {
-                skew: 0,
-                duration: 0.8,
-                ease: "power3",
-                overwrite: true,
-                onUpdate: () => skewSetter(proxy.skew),
-              });
-            }
-          },
         },
       });
       tl.to(track, { x: () => -getAmount(), ease: "none" }, 0).fromTo(
