@@ -7,7 +7,7 @@ export const site = {
   name: "Sacha Ahsan",
   firstName: "Sacha",
   lastName: "Ahsan",
-  role: "Frontend Developer",
+  role: "Fullstack Developer",
   email: "sachas4f@gmail.com",
   location: "Bali, Indonesia",
   availability: "Available for work",
@@ -22,7 +22,7 @@ export const navLinks = [
 ];
 
 export const aboutParas = [
-  "Hi, I'm Sacha Ahsan, a Frontend Developer based in Bali. I focus on building clean, responsive, and user-friendly web interfaces using React and Next.js.",
+  "Hi, I'm Sacha Ahsan, a Fullstack Developer based in Bali. I focus on building clean, responsive, and user-friendly web interfaces using React and Next.js.",
   "I bring a strong drive to learn and genuine curiosity about everything in the web development world, always looking for better ways to solve problems and write cleaner code. Looking ahead, I'm working toward becoming a Fullstack Developer, deepening my understanding of the backend so I can build applications end to end.",
   "To me, every project is a chance to learn something new — whether it's a technique, a tool, or a different way of thinking through a problem.",
 ];

@@ -36,15 +36,15 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://sachaahsan.vercel.a
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Sacha Ahsan — Frontend Developer",
+    default: "Sacha Ahsan — Fullstack Developer",
     template: "%s — Sacha Ahsan",
   },
   description:
-    "Portfolio of Sacha Ahsan, a frontend developer from Bali crafting fast, accessible interfaces with Next.js, React, and GSAP.",
+    "Portfolio of Sacha Ahsan, a fullstack developer from Bali crafting fast, accessible interfaces with Next.js, React, and GSAP.",
   applicationName: "Sacha Ahsan — Portfolio",
   keywords: [
     "Sacha Ahsan",
-    "Frontend Developer",
+    "Fullstack Developer",
     "React",
     "Next.js",
     "TypeScript",
@@ -61,14 +61,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: "/",
-    title: "Sacha Ahsan — Frontend Developer",
+    title: "Sacha Ahsan — Fullstack Developer",
     description: "Frontend developer from Bali crafting fast, accessible interfaces.",
     siteName: "Sacha Ahsan — Portfolio",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sacha Ahsan — Frontend Developer",
+    title: "Sacha Ahsan — Fullstack Developer",
     description: "Frontend developer from Bali crafting fast, accessible interfaces.",
   },
 };
