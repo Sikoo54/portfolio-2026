@@ -130,7 +130,7 @@ export default function Preloader() {
         </div>
       </div>
 
-      <div className="absolute bottom-0 left-0 h-[2px] w-full bg-[#141509]/20">
+      <div className="absolute bottom-0 left-0 h-[6px] w-full bg-[#141509]/20">
         <div className="pre-bar h-full w-full origin-left bg-[#141509]" />
       </div>
     </div>
