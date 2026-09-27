@@ -26,8 +26,8 @@ export default function Navbar() {
       tl.set(overlay, { visibility: "visible" })
         .fromTo(
           overlay,
-          { clipPath: "inset(0 0 100% 0)" },
-          { clipPath: "inset(0 0 0% 0)", duration: 0.7, ease: "power4.inOut" }
+          { clipPath: "inset(0 0 0 100%)" },
+          { clipPath: "inset(0 0 0 0%)", duration: 0.7, ease: "power4.inOut" }
         )
         .fromTo(
           ".menu-link-inner",
@@ -114,16 +114,16 @@ export default function Navbar() {
         role="dialog"
         aria-modal="true"
         aria-label="Site navigation"
-        className="invisible fixed inset-0 z-[55] bg-[#0e0f0a] text-[#f0f2e6]"
-        style={{ clipPath: "inset(0 0 100% 0)" }}
+        className="invisible fixed bottom-0 right-0 top-0 z-[55] flex h-full w-[min(100%,400px)] bg-[#0e0f0a] text-[#f0f2e6]"
+        style={{ clipPath: "inset(0 0 0 100%)" }}
       >
-        <div className="flex h-full flex-col justify-between px-6 pb-8 pt-28 md:px-12 md:pt-40">
+        <div className="flex h-full flex-col justify-between px-6 pb-8 pt-28 md:px-10 md:pt-32">
           <nav className="flex flex-col">
             {navLinks.map((link, i) => (
               <a key={link.href} href={link.href} onClick={() => setOpen(false)} className="menu-link group block overflow-hidden py-1 md:py-2">
-                <span className="menu-link-inner flex items-baseline gap-4 md:gap-6">
+                <span className="menu-link-inner flex items-baseline gap-4 md:gap-5">
                   <span className="font-mono text-xs text-[#c6f24e]/70">0{i + 1}</span>
-                  <span className="font-display text-[clamp(2.5rem,8vw,5.5rem)] font-bold uppercase leading-[0.95] tracking-tight transition-all duration-300 group-hover:translate-x-3 group-hover:text-[#c6f24e]">
+                  <span className="font-display text-[clamp(2rem,6vw,3.5rem)] font-bold uppercase leading-[0.95] tracking-tight transition-all duration-300 group-hover:translate-x-3 group-hover:text-[#c6f24e]">
                     {link.label}
                   </span>
                 </span>
@@ -131,7 +131,7 @@ export default function Navbar() {
             ))}
           </nav>
 
-          <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+          <div className="flex flex-col gap-6">
             <div className="menu-meta flex flex-col gap-1 font-mono text-xs uppercase tracking-widest text-white/50">
               <span className="text-[10px] text-white/30">Email</span>
               <a href={`mailto:${site.email}`} className="text-sm normal-case tracking-normal text-[#f0f2e6] transition-colors hover:text-[#c6f24e]">

@@ -13,8 +13,8 @@ export default function Home() {
     <>
       <div className="relative [scroll-snap-type:y_proximity]">
         <Hero />
-        <About />
       </div>
+      <About />
       <Skills />
       <Projects />
       <Contact />

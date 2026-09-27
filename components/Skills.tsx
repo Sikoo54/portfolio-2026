@@ -208,7 +208,7 @@ export default function Skills() {
     <section
       ref={ref}
       id="skills"
-      className="relative isolate overflow-hidden border-t border-line bg-panel-glow px-0 py-28 md:py-40"
+      className="relative isolate overflow-hidden border-t border-line bg-[#060a00] px-0 py-28 md:py-40"
     >
       <EdgeText side="right" className="text-muted" text="Stack &mdash; daily drivers" />
 

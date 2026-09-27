@@ -86,7 +86,7 @@ body {
 
 /* Section-specific backgrounds (scope tokens per section) */
 .section-about {
-  --panel: #161810;
+  --panel: #060a00;
 }
 
 .section-dark {

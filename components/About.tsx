@@ -56,20 +56,19 @@ export default function About() {
     <section
       ref={ref}
       id="about"
-      className="section-about relative h-svh snap-start overflow-hidden px-6 py-20 md:px-12"
+      className="section-about relative h-svh snap-start overflow-hidden bg-[#060a00] px-6 py-20 md:px-12"
     >
-      <div aria-hidden className="bg-panel-glow absolute inset-0 -z-20" />
       <EdgeText side="right" className="text-muted" text="Profile &mdash; who I am" />
       <div className="pointer-events-none absolute inset-x-6 top-14 z-10 md:inset-x-12 md:top-20">
         <SectionHeading index="01" title="About Me" />
       </div>
       <div className="relative flex h-full flex-col justify-center">
-        <div className="mx-auto w-full max-w-4xl pt-16 md:pt-28">
+        <div className="mx-auto w-full max-w-4xl pt-12 md:pt-20">
 
           {aboutParas.map((para, p) => (
             <p
               key={p}
-              className="mb-4 text-center font-editorial text-[1.15rem] font-normal leading-[1.55] tracking-tight text-foreground md:mb-6 md:text-[1.85rem] md:leading-[1.4]"
+              className="mb-5 text-center font-editorial text-[1.15rem] font-normal leading-[1.6] tracking-tight text-foreground md:mb-7 md:text-[1.85rem] md:leading-[1.45]"
             >
               {para.split(" ").map((word, i) => (
                 <Word key={`${p}-${i}`} word={word} i={i} accent={false} />
@@ -77,7 +76,7 @@ export default function About() {
             </p>
           ))}
 
-          <blockquote className="mx-auto mt-6 max-w-2xl text-center font-editorial text-2xl italic leading-relaxed text-accent md:mt-12 md:text-4xl">
+          <blockquote className="mx-auto mt-8 max-w-2xl px-2 text-center font-editorial text-2xl italic leading-snug text-accent md:mt-10 md:text-4xl md:leading-relaxed">
             &ldquo;
             {quoteText.split(" ").map((word, i) => (
               <Fragment key={i}>
