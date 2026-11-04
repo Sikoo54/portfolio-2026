@@ -56,13 +56,19 @@ export default function About() {
     <section
       ref={ref}
       id="about"
-      className="section-about relative h-svh snap-start overflow-hidden bg-[#060a00] px-6 py-20 md:px-12"
+      className="section-about section-rich relative h-svh snap-start overflow-hidden px-6 py-20 md:px-12"
     >
-      <EdgeText side="right" className="text-muted" text="Profile &mdash; who I am" />
+      <span
+        aria-hidden
+        className="pointer-events-none absolute -right-2 top-8 z-0 select-none font-display text-[22vw] font-bold leading-none text-transparent [-webkit-text-stroke:1px_rgba(240,242,230,0.06)] md:top-4"
+      >
+        01
+      </span>
+      <EdgeText side="right" className="z-10 text-muted" text="Profile &mdash; who I am" />
       <div className="pointer-events-none absolute inset-x-6 top-14 z-10 md:inset-x-12 md:top-20">
         <SectionHeading index="01" title="About Me" />
       </div>
-      <div className="relative flex h-full flex-col justify-center">
+      <div className="relative z-10 flex h-full flex-col justify-center">
         <div className="mx-auto w-full max-w-4xl pt-12 md:pt-20">
 
           {aboutParas.map((para, p) => (

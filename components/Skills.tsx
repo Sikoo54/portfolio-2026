@@ -208,24 +208,30 @@ export default function Skills() {
     <section
       ref={ref}
       id="skills"
-      className="relative isolate overflow-hidden border-t border-line bg-[#060a00] px-0 py-28 md:py-40"
+      className="section-rich section-stack relative isolate overflow-hidden border-t border-[#c6f24e]/15 px-0 py-28 md:py-40"
     >
-      <EdgeText side="right" className="text-muted" text="Stack &mdash; daily drivers" />
+      <span
+        aria-hidden
+        className="pointer-events-none absolute -left-2 bottom-4 z-0 select-none font-display text-[22vw] font-bold leading-none text-transparent [-webkit-text-stroke:1px_rgba(198,242,78,0.09)]"
+      >
+        02
+      </span>
+      <EdgeText side="right" className="z-10 text-muted" text="Stack &mdash; daily drivers" />
 
-      <div className="px-6 md:px-12">
+      <div className="relative z-10 px-6 md:px-12">
         <SectionHeading index="02" title="Stack" />
         <p className="mb-8 max-w-md text-lg text-muted md:text-xl">
           The tools behind the work &mdash; from architecture to motion.
         </p>
       </div>
 
-      <div className="flex flex-col gap-8 md:gap-10">
+      <div className="relative z-10 flex flex-col gap-8 md:gap-10">
         {rows.map((row, i) => (
           <SkillRow key={row.label} row={row} index={i} />
         ))}
       </div>
 
-      <div className="cert-list mt-16 md:mt-20">
+      <div className="cert-list relative z-10 mt-16 md:mt-20">
         <p className="mb-5 px-6 font-mono text-xs uppercase tracking-[0.3em] text-muted md:px-12">
           Certifications
         </p>

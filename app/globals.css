@@ -84,6 +84,59 @@ body {
     radial-gradient(70% 50% at 90% 100%, var(--panel-glow-b), transparent 72%);
 }
 
+/* Rich dark sections: lime glow + dot grid + vignette (pure CSS) */
+.section-rich {
+  position: relative;
+  background-color: #070b01;
+  background-image:
+    radial-gradient(60% 50% at 12% 0%, rgba(198, 242, 78, 0.18), transparent 70%),
+    radial-gradient(50% 45% at 90% 100%, rgba(198, 242, 78, 0.1), transparent 72%);
+}
+.section-rich::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(80% 65% at 50% 45%, transparent 45%, rgba(0, 0, 0, 0.38) 100%);
+}
+
+/* Stack variant: technical motif — no glow, tight dot grid + hairlines + edge ticks */
+.section-rich.section-stack {
+  background-color: #080c02;
+  background-image:
+    radial-gradient(75% 45% at 50% 0%, rgba(198, 242, 78, 0.11), transparent 72%),
+    repeating-linear-gradient(
+      to bottom,
+      rgba(198, 242, 78, 0.24) 0 1px,
+      transparent 1px 34px
+    );
+  background-size: auto, 16px 100%;
+  background-repeat: no-repeat, no-repeat;
+  background-position: center top, left 0 top 0;
+  box-shadow: inset 1px 0 0 rgba(198, 242, 78, 0.18);
+}
+.section-rich.section-stack::before {
+  background: radial-gradient(90% 70% at 50% 45%, transparent 52%, rgba(0, 0, 0, 0.3) 100%);
+}
+.section-rich.section-stack::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle, rgba(198, 242, 78, 0.16) 1px, transparent 1px),
+    repeating-linear-gradient(
+      to bottom,
+      rgba(198, 242, 78, 0.07) 0 1px,
+      transparent 1px 104px
+    );
+  background-size: 18px 18px, 100% 100%;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 62%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 62%, transparent 100%);
+}
+
 /* Section-specific backgrounds (scope tokens per section) */
 .section-about {
   --panel: #060a00;
