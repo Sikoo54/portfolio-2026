@@ -63,6 +63,14 @@ export const projects: Project[] = [
     image: "/projects/p1.svg",
     link: "https://cafeleblanc.vercel.app/",
   },
+  {
+    title: "AscendHabit",
+    category: "Habit Tracker",
+    year: "2026",
+    description: "AscendHabit — From small changes to a Better Life",
+    image: "/projects/ascend.svg",
+    link: "https://ascend-habit.vercel.app/",
+  },
 ];
 
 export const certifications = [

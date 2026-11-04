@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0%" stop-color="#22332b"/>
+      <stop offset="100%" stop-color="#141f19"/>
+    </linearGradient>
+    <linearGradient id="xp" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#a96f14"/>
+      <stop offset="55%" stop-color="#d99a2b"/>
+      <stop offset="100%" stop-color="#ffd236"/>
+    </linearGradient>
+    <pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="1.1" fill="#fbf7ee" opacity="0.055"/>
+    </pattern>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="18" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="500" fill="url(#bg)"/>
+  <rect width="800" height="500" fill="url(#dots)"/>
+
+  <!-- Warm glow behind crest -->
+  <circle cx="400" cy="205" r="150" fill="#c8871c" opacity="0.10" filter="url(#glow)"/>
+
+  <!-- Concentric rings (icon motif) -->
+  <g fill="none" stroke="#fbf7ee" opacity="0.5">
+    <ellipse cx="400" cy="212" rx="118" ry="86" transform="rotate(-12 400 212)" stroke-width="2"/>
+    <ellipse cx="398" cy="206" rx="76" ry="55" transform="rotate(8 398 206)" stroke-width="1.6" opacity="0.75"/>
+  </g>
+  <circle cx="396" cy="202" r="33" fill="none" stroke="#fbf7ee" stroke-width="2" opacity="0.85"/>
+  <circle cx="396" cy="202" r="13" fill="#d99a2b"/>
+
+  <!-- Orbiting quest pips -->
+  <g fill="#ffd236">
+    <circle cx="512" cy="168" r="4" opacity="0.9"/>
+    <circle cx="486" cy="268" r="3.2" opacity="0.65"/>
+    <circle cx="300" cy="132" r="3.2" opacity="0.55"/>
+  </g>
+
+  <!-- XP bar -->
+  <g>
+    <rect x="250" y="352" width="300" height="8" rx="4" fill="#fbf7ee" opacity="0.10"/>
+    <rect x="250" y="352" width="198" height="8" rx="4" fill="url(#xp)"/>
+    <circle cx="448" cy="356" r="7" fill="#ffd236" opacity="0.95"/>
+    <circle cx="448" cy="356" r="14" fill="#ffd236" opacity="0.14"/>
+  </g>
+
+  <!-- Rank chevrons -->
+  <g stroke="#5c8f6a" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.85">
+    <path d="M330 296l14-13 14 13"/>
+    <path d="M364 296l14-13 14 13"/>
+    <path d="M398 296l14-13 14 13"/>
+  </g>
+  <g stroke="#5c8f6a" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.35">
+    <path d="M432 296l14-13 14 13"/>
+    <path d="M466 296l14-13 14 13"/>
+  </g>
+
+  <!-- Corner frame -->
+  <g stroke="#fbf7ee" stroke-width="1" opacity="0.12">
+    <path d="M40 92v-52h52"/>
+    <path d="M760 92v-52h-52"/>
+    <path d="M40 408v52h52"/>
+    <path d="M760 408v52h-52"/>
+  </g>
+</svg>

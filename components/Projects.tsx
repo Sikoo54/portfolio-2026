@@ -53,7 +53,7 @@ function ProjectCard({ project, i }: { project: Project; i: number }) {
           </h3>
           <span className="font-mono text-xs text-muted">0{i + 1}</span>
         </div>
-        <p className="mt-2 text-sm text-muted md:text-base">{project.description}</p>
+        <p className="mt-3 text-sm text-muted md:mt-4 md:text-base">{project.description}</p>
         <div className="mt-auto flex items-center justify-between pt-6 md:pt-8">
           <span className="font-mono text-xs uppercase tracking-widest text-muted">
             {project.category} &mdash; {project.year}
