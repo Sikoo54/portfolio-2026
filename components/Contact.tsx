@@ -46,6 +46,20 @@ export default function Contact() {
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
       gsap.fromTo(
+        ".contact-card",
+        { opacity: 0, y: 64, scale: 0.96, rotateX: 8, transformOrigin: "center top" },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          rotateX: 0,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: { trigger: ".contact-main", start: "top 88%", once: true },
+        }
+      );
+
+      gsap.fromTo(
         ".contact-char",
         { yPercent: 115, rotate: 12 },
         {
@@ -85,14 +99,14 @@ export default function Contact() {
         <SectionHeading index="04" title="Contact" />
       </div>
 
-      <div className="contact-main relative mx-auto flex w-full max-w-4xl flex-1 flex-col justify-center px-6 md:px-8">
-        <div className="flex flex-col items-center rounded-3xl border border-[#141509]/20 bg-[#141509]/[0.035] px-6 py-10 text-center md:px-14 md:py-14">
+      <div className="contact-main relative mx-auto flex w-full max-w-4xl flex-1 flex-col justify-center px-6 [perspective:1200px] md:px-8">
+        <div className="contact-card flex flex-col items-center rounded-3xl border border-[#c6f24e]/22 bg-[#10200f] px-6 py-10 text-center text-[#f0f2e6] shadow-[0_30px_70px_-45px_rgba(0,0,0,0.45)] md:px-14 md:py-14">
           <div className="contact-item flex flex-wrap items-center justify-center gap-x-5 gap-y-3">
-            <span className="flex items-center gap-3 rounded-full border border-[#141509]/30 px-4 py-2 text-[10px] uppercase tracking-[0.2em] md:text-xs">
-              <span className="size-2 animate-pulse rounded-full bg-[#141509]" />
+            <span className="flex items-center gap-3 rounded-full border border-[#f0f2e6]/25 px-4 py-2 text-[10px] uppercase tracking-[0.2em] md:text-xs">
+              <span className="size-2 animate-pulse rounded-full bg-[#c6f24e]" />
               {site.availability}
             </span>
-            <span className="text-[10px] uppercase tracking-[0.2em] text-[#141509]/60 md:text-xs">
+            <span className="text-[10px] uppercase tracking-[0.2em] text-[#f0f2e6]/55 md:text-xs">
               Bali &mdash; Indonesia &middot; GMT+8
             </span>
           </div>
@@ -102,11 +116,11 @@ export default function Contact() {
               <Letters text="LET'S WORK" />
             </span>
             <span className="block overflow-hidden pb-3">
-              <Letters text="together" className="font-editorial italic font-normal" />
+              <Letters text="together" className="font-editorial italic font-normal text-[#c6f24e]" />
             </span>
           </h2>
 
-          <p className="contact-item mt-5 max-w-md text-sm text-[#141509]/70 md:text-base">
+          <p className="contact-item mt-5 max-w-md text-sm text-[#f0f2e6]/65 md:text-base">
             Have a project, a role, or just an idea worth building? My inbox is open.
           </p>
 
@@ -114,7 +128,7 @@ export default function Contact() {
             <div className="flex flex-col items-center gap-3 sm:flex-row">
               <a
                 href={`mailto:${site.email}`}
-                className="font-display text-lg font-bold tracking-tight underline decoration-[#141509]/25 decoration-2 underline-offset-[6px] transition-colors hover:decoration-[#141509] sm:text-xl md:text-2xl"
+                className="font-display text-lg font-bold tracking-tight text-[#f0f2e6] underline decoration-[#c6f24e]/40 decoration-2 underline-offset-[6px] transition-colors hover:decoration-[#c6f24e] sm:text-xl md:text-2xl"
               >
                 {site.email}
               </a>
@@ -122,7 +136,7 @@ export default function Contact() {
                 type="button"
                 onClick={copyEmail}
                 aria-live="polite"
-                className="inline-flex items-center gap-2 rounded-full border border-[#141509]/30 px-4 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] transition-colors hover:bg-[#141509] hover:text-[#c6f24e]"
+                className="inline-flex items-center gap-2 rounded-full border border-[#f0f2e6]/25 px-4 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#f0f2e6] transition-colors hover:border-[#c6f24e] hover:bg-[#c6f24e] hover:text-[#141509]"
               >
                 {copied ? "Copied" : "Copy"}
                 <svg
@@ -148,8 +162,8 @@ export default function Contact() {
             </div>
           </div>
 
-          <div className="contact-item mt-9 flex w-full flex-col items-center gap-3 border-t border-[#141509]/15 pt-7 md:mt-11">
-            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#141509]/50">
+          <div className="contact-item mt-9 flex w-full flex-col items-center gap-3 border-t border-[#f0f2e6]/12 pt-7 md:mt-11">
+            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#f0f2e6]/45">
               Elsewhere
             </span>
             <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
@@ -159,9 +173,9 @@ export default function Contact() {
                   href={s.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="group flex items-center gap-2 text-sm font-semibold tracking-tight"
+                  className="group flex items-center gap-2 text-sm font-semibold tracking-tight text-[#f0f2e6] transition-colors hover:text-[#c6f24e]"
                 >
-                  <span className="font-mono text-[10px] text-[#141509]/50 group-hover:text-[#141509]/80">
+                  <span className="font-mono text-[10px] text-[#c6f24e]/60 group-hover:text-[#c6f24e]">
                     0{i + 1}
                   </span>
                   <span className="transition-transform duration-300 group-hover:translate-x-0.5">
@@ -188,7 +202,7 @@ export default function Contact() {
           <a
             href="/cv.pdf"
             download
-            className="group contact-item mt-8 inline-flex items-center gap-3 rounded-full bg-[#141509] px-7 py-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#c6f24e] transition-transform duration-300 hover:-translate-y-0.5 md:text-xs"
+            className="group contact-item mt-8 inline-flex items-center gap-3 rounded-full bg-[#c6f24e] px-7 py-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#141509] transition-transform duration-300 hover:-translate-y-0.5 md:text-xs"
           >
             Download CV
             <svg
